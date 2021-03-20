@@ -12,6 +12,7 @@ def main():
 
     try:
         con = sqlite3.connect(database)
+        print('Connected to SQLite')
     except Error as e:
         print('database connection error: '+str(e))
         sys.exit(-1)
@@ -19,17 +20,17 @@ def main():
     with con:
         cur = con.cursor()
 
-        cur.execute("SELECT * FROM gas_fees")
+        cur.execute("SELECT fee FROM gas_fees")
         data = cur.fetchall()
 
-    d = []
-    for x in data:
-        if(x[0] > 4000):
-            d.append(x[1])
+    print('Read data -> %s rows' % (len(data),))
 
-    y = np.asarray(d)
+    print('Sample: %s' % (data[0][0],))
+
+    y = np.asarray(data[-100:])
     print(y)
-    train, test = train_test_split(y, train_size=100)
+
+    train, test = train_test_split(y, train_size=50)
 
     # Fit your model
     model = pm.auto_arima(train, seasonal=True)
@@ -39,8 +40,9 @@ def main():
 
     # Visualize the forecasts (blue=train, green=forecasts)
     x = np.arange(y.shape[0])
-    plt.plot(x[:100], train, c='blue')
-    #plt.plot(x[118:], forecasts, c='green')
+    #plt.plot(x[-100:], y[-100:], c='red')
+    plt.plot(x[:50], train, c='blue')
+    plt.plot(x[50:], forecasts, c='green')
     plt.show()
 
 if __name__ == '__main__':
