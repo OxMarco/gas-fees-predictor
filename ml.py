@@ -33,7 +33,7 @@ def main():
     train, test = train_test_split(y, train_size=50)
 
     # Fit your model
-    model = pm.auto_arima(train, seasonal=True)
+    model = pm.auto_arima(train, seasonal=True, m=7)
 
     # make your forecasts
     forecasts = model.predict(test.shape[0])  # predict N steps into the future
