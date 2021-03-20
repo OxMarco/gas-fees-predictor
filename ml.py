@@ -40,7 +40,7 @@ def main():
 
     # Visualize the forecasts (blue=train, green=forecasts)
     x = np.arange(y.shape[0])
-    #plt.plot(x[-100:], y[-100:], c='red')
+    plt.plot(x[-100:], y[-100:], c='red')
     plt.plot(x[:50], train, c='blue')
     plt.plot(x[50:], forecasts, c='green')
     plt.show()
