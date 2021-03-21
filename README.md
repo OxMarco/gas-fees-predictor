@@ -1,5 +1,5 @@
 # gas-fees-predictor
-Predict Ethereum gas fees using an ARIMA statistical model
+Predict Ethereum gas fees in the next few days (<5) using an ARIMA statistical model and historical data from etherscan API.
 
 ## Files
 In order to start tinkering, you need to run the following files in the exact order:
