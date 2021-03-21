@@ -27,22 +27,22 @@ def main():
 
     print('Sample: %s' % (data[0][0],))
 
-    y = np.asarray(data[-100:])
+    y = np.asarray(data[-100:]) # total number of samples to take
     print(y)
 
-    train, test = train_test_split(y, train_size=50)
+    train, test = train_test_split(y, train_size=50) # total number of samples / 2
 
     # Fit your model
-    model = pm.auto_arima(train, seasonal=True, m=7)
+    model = pm.auto_arima(train, seasonal=True, m=7) # Seasonal = True??
 
     # make your forecasts
     forecasts = model.predict(test.shape[0])  # predict N steps into the future
 
-    # Visualize the forecasts (blue=train, green=forecasts)
+    # Visualize the forecasts (blue=train, red=whole dataset, green=forecasts)
     x = np.arange(y.shape[0])
     plt.plot(x, y, c='red')
-    plt.plot(x[:50], train, c='blue')
-    plt.plot(x[50:], forecasts, c='green')
+    plt.plot(x[:50], train, c='blue') # total number of samples / 2
+    plt.plot(x[50:], forecasts, c='green') # same as above
     plt.show()
 
 if __name__ == '__main__':
